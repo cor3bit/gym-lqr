@@ -12,6 +12,7 @@ setuptools.setup(
     author='Nick Korbit',
     description='Gym(nasium) Interface for LQR-Family Problems',
     long_description=read('README.md'),
+    long_description_content_type="text/markdown",
     classifiers=[
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
