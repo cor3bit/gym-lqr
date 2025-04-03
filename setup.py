@@ -8,7 +8,7 @@ def read(fname):
 
 setuptools.setup(
     name='gym-lqr',
-    version='0.0.1',
+    version='0.0.2',
     author='Nick Korbit',
     description='Gym(nasium) Interface for LQR-Family Problems',
     long_description=read('README.md'),
