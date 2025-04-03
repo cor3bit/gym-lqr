@@ -51,10 +51,10 @@ class LQR(gym.Env):
         R = -np.eye(n_a) if action_reward_matrix is None else action_reward_matrix
 
         # assign internal variables
-        self._A = A
-        self._B = B
-        self._Q = Q
-        self._R = R
+        self._A = A.astype(np.float32)
+        self._B = B.astype(np.float32)
+        self._Q = Q.astype(np.float32)
+        self._R = R.astype(np.float32)
         self._n_s, self._n_a = B.shape
 
         if not force_deterministic:
@@ -62,7 +62,7 @@ class LQR(gym.Env):
             if not isinstance(G, np.ndarray):
                 raise ValueError(f'Noise matrix not defined for a stochastic problem.')
 
-            self._G = G
+            self._G = G.astype(np.float32)
             self._n_w = G.shape[1]
         else:
             self._G = None
@@ -74,10 +74,10 @@ class LQR(gym.Env):
         # define spaces S and A
         # TODO consider switch to float64
         self.observation_space = spaces.Box(
-            low=-np.inf, high=np.inf, shape=(n_s,),  # dtype=np.float64,
+            low=-np.inf, high=np.inf, shape=(n_s,), dtype=np.float32,
         )
         self.action_space = spaces.Box(
-            low=-np.inf, high=np.inf, shape=(n_a,),  # dtype=np.float64,
+            low=-np.inf, high=np.inf, shape=(n_a,), dtype=np.float32,
         )
 
         # custom initial state distribution
@@ -150,6 +150,7 @@ class LQR(gym.Env):
         else:
             raise ValueError(f'Initial State distribution not recognized: {distro_id}.')
 
+        obs = obs.astype(np.float32)
         self._state = obs
 
         # TODO return copy?
